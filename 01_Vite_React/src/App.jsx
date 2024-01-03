@@ -1,8 +1,13 @@
+import Chai from "./Chai"
 
 function App() {
 
   return (
-   <h1>React with Vite | Rhythm Mahale</h1>
+    // 1 hi element return kar sakte hai isliye <> </> k andar sab wrap kar diya taaki wo pura 1 hi count hoga
+    <> 
+      <Chai/>
+      <h1>Waah bete mauj kardi</h1>
+      </>
   )
 }
 
