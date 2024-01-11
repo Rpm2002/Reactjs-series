@@ -1,17 +1,41 @@
 import { useCallback, useState, useEffect, useRef } from 'react'
 
+/*
+  => useState is a React Hook that lets you add a state variable to your component.
+  => const [state, setState] = useState(initialState)
+  => useState returns an array with exactly two values:
+        The current state. During the first render, it will match the initialState you have passed.
+        The set function that lets you update the state to a different value and trigger a re-render.
+*/
 
 function App() {
   const [length,setLength]=useState(8);
   const [numbersAllowed,setnumbersAllowed]=useState(false);
   const [charactersAllowed,setcharactersAllowed]=useState(false);
   const [password,setPassword]=useState("");
+ 
+  /* => useRef is a React Hook that lets you reference a value that’s not needed for rendering.
+     => const ref = useRef(initialValue)
+     => initialValue: The value you want the ref object’s current property to be initially. It can be a value of 
+     any type. This argument is ignored after the initial render. 
+     => useRef returns an object with a single property:
+            current: Initially, it’s set to the initialValue you have passed. You can later set it to 
+            something else. If you pass the ref object to React as a ref attribute to a JSX node, React 
+            will set its current property.
 
-  // useRef
+  */
+
   const passwordRef=useRef(null)
 
-  // useCallback
-  // useCallback is a React Hook that lets you cache a function definition between re-renders.
+  /* => useCallback is a React Hook that lets you cache a function definition between re-renders.
+     => const cachedFn = useCallback(fn, dependencies) 
+     => You should only rely on useCallback as a performance optimization. 
+     => Parameters 
+        fn: The function value that you want to cache. It can take any arguments and return any values.
+        dependencies: The list of all reactive values referenced inside of the fn code. Reactive values include 
+        props, state, and all the variables and functions declared directly inside your component body. 
+  */
+
   const passwordGenerator=useCallback(()=>{
     let password="";
     let string="ABCDEFGHIJKLMNOPQRSTUVWXYZacdefghijklmnopqrstuvwxyz";
@@ -33,9 +57,13 @@ function App() {
     window.navigator.clipboard.writeText(password)
   },[password])
 
-  // useEffect
-  // useEffect is a React Hook that lets you synchronize a component with an external system.
-
+  /* => useEffect is a React Hook that lets you synchronize a component with an external system.
+     => useEffect(setup, dependencies?)
+     => setup: The function with your Effect’s logic.
+     => optional dependencies: The list of all reactive values referenced inside of the setup code. Reactive values
+        include props, state, and all the variables and functions declared directly inside your component body. 
+  */
+ 
   useEffect(()=>{
     passwordGenerator()
   },[length,numbersAllowed,charactersAllowed,passwordGenerator])
