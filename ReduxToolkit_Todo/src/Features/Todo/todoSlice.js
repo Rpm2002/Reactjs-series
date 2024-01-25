@@ -13,7 +13,23 @@ export const todoSlice=createSlice({
         id:nanoid(), 
         text:action.payload
       }
+      state.todos.push(todo)
     },
-    removeTodo:()=>{}
+
+    removeTodo:(state,action)=>{
+      state.todos=state.todos.filter((todo)=>{
+        todo.id!=action.payload
+      })
+    },
+
+    // updateTodo:(state,action)=>{
+    //   state.todos=state.todos.map((todo)=>{
+    //     todo.id==action.payload?action.payload:todo
+    //   })
+    // }
   }
 })
+
+export const {addTodo,removeTodo}=todoSlice.actions
+
+export default todoSlice.reducer
