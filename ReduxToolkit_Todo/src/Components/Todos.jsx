@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector} from 'react-redux'
-import { removeTodo } from '../Features/Todo/todoSlice'
+import { removeTodo,updateTodo} from '../Features/Todo/todoSlice'
+
+// We can read data from the store with useSelector and dispatch actions using useDispatch
 
 function Todos() {
   const todos = useSelector(state => state.todos)

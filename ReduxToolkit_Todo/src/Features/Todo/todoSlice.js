@@ -4,6 +4,8 @@ const initialState={
   todos:[{id:1, text:'Hello World'}]
 }
 
+// features ko hi slice bolte hai
+
 export const todoSlice=createSlice({
   name:'todo',
   initialState,
@@ -17,19 +19,32 @@ export const todoSlice=createSlice({
     },
 
     removeTodo:(state,action)=>{
-      state.todos=state.todos.filter((todo)=>{
-        todo.id!=action.payload
-      })
+      state.todos=state.todos.filter((todo)=>
+        todo.id!==action.payload
+      )
     },
 
     // updateTodo:(state,action)=>{
     //   state.todos=state.todos.map((todo)=>{
-    //     todo.id==action.payload?action.payload:todo
+    //     todo.id===action.payload?action.payload:todo
     //   })
     // }
+
+    updateTodo: (state, action) => {
+      const { id, newText } = action.payload;
+      const todoToUpdate = state.todos.find(todo => todo.id === id);
+      if (todoToUpdate) {
+        todoToUpdate.text = newText;
+      }
+    }
   }
 })
 
-export const {addTodo,removeTodo}=todoSlice.actions
+export const {addTodo,removeTodo,updateTodo}=todoSlice.actions
 
 export default todoSlice.reducer
+
+ // Redux Toolkit allows us to write "mutating" logic in reducers. It
+      // doesn't actually mutate the state because it uses the Immer library,
+      // which detects changes to a "draft state" and produces a brand new
+      // immutable state based off those changes
