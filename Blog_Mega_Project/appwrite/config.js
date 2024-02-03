@@ -81,7 +81,7 @@ export class Service{
   async getPost(slug){
 
     try {
-       await this.databases.getDocument(
+       return await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug
@@ -94,12 +94,12 @@ export class Service{
 
   } 
 
-   // get posts which are active
+   // get all the posts which are active
   
    async getPosts(queries=[Query.equal("status","active")]){
 
     try {
-       await this.databases.getDocument(
+       return await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         queries
@@ -111,6 +111,48 @@ export class Service{
     }
 
   } 
+
+  // Upload a file
+  
+  async uploadFile(file){
+
+    try {
+       return await this.buckets.createFile(
+        conf.appwriteBucketId,
+        ID.unique(),
+        file
+       )
+        
+    } catch (error) {
+      console.log("Appwrite service : uploadFile : error",error);
+    }
+    return false
+  } 
+
+  // Delete a file
+  
+  async deleteFile(fileId){
+
+    try {
+       await this.buckets.deleteFile(
+        conf.appwriteBucketId,
+        fileId
+       )
+       return true 
+    } catch (error) {
+      console.log("Appwrite service : deleteFile : error",error);
+    }
+    return false
+  } 
+
+  // File preview
+
+      getFilePreview(fileId){
+       return this.buckets.getFilePreview(
+        conf.appwriteBucketId,
+        fileId
+       )
+  }
 }
 
 const service=new Service()
