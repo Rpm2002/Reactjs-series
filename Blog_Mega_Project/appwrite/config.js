@@ -13,7 +13,7 @@ export class Service{
     this.databases=new Databases(this.client)
     this.buckets=new  Storage(this.client)
   }
-
+    
   // Creating a post
   
   async createPost({title,content,featuredImage,status,userId}){
